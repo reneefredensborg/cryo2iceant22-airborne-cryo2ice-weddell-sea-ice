@@ -19,6 +19,7 @@ Conda environment used to run the code is available under "cryo2iceant.yml". Bey
 - _tfmra_py3.py_: A threshold-first-maxima-retracker-algorithm (TFMRA) re-tracker.
 - _airborne_CRESIS_mat_to_netCDF.py_: Programme to load all relevant .mat frames available after post-processing by CReSIS, and where each frame are re-tracked using the relevant re-trackers and the derived elevations (and other paramters) for the entire under-flight (including all relevant .mat-files) are saved into one file per radar.
 - _CRYO2ICE_func.py_: Functions to derive the CRYO2ICE collocated observations for deriving snow depth, and for extracting the nearest neighbouring AMSR2 and CASSIS observations. Based on code used to compute data for Fredensborg Hansen et al (2024), available at following repository: https://github.com/reneefredensborg/CRYO2ICE-Arctic-freeboards-and-snow-depth-2020-2022
+- 
 For the post-processing including plotting, the following Python documents are relevant:
 - _main_CRESIS_comparison.py_:
 - _CRYO2ICE_CS2_IS2_FF-SAR_comp.py_:
