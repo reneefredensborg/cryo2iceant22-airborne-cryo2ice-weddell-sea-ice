@@ -443,7 +443,7 @@ ax.legend([leg2, leg3, leg4, leg5], ['Specular/leads', 'Diffuse/sea ice' , 'Diff
 
 ax = axs[0]
 
-ax.format(ylabel='total or radar\nfreeboard (m)', ,xlabel='latitude (degrees N)', lltitle='Freeboards within 3 m from sea level', xlabel='', lefttitle='')
+ax.format(ylabel='total or radar\nfreeboard (m)', xlabel='latitude (degrees N)', lltitle='Freeboards within 3 m from sea level', lefttitle='')
 #ax.plot(lat_FFSAR, rfb_FFSAR, label='FF-SAR, N = {}'.format(len(rfb_FFSAR[~np.isnan(rfb_FFSAR)])), linewidth=0.5, markersize=1, linestyle='--', marker='o')
 #ax.plot(lat_ESAE[flag_valid==1], rfb_ESAE[flag_valid==1], label='ESA-E, N = {}'.format(len(rfb_ESAE[flag_valid==1])), linewidth=0.5, markersize=1, linestyle='--', marker='o')
 leg1=ax.scatter(df_ESAE['lat'], df_ESAE['rfb'], label='ESA-E, N = {} (<-0.10 m: {:.2f}%)'.format(len(df_ESAE[df_ESAE['rfb'].notna()]), (len(df_ESAE[df_ESAE['rfb']<-0.10])/len(df_ESAE[df_ESAE['rfb'].notna()]))*100), linewidth=0.5, markersize=1, linestyle='-', marker='o', zorder=-1, c=cmap_qual[0], alpha=0.2)
@@ -474,12 +474,12 @@ pwr_filt = pwr_wrf_ESAE[idx_lat_ESAE[:,0]]
 pwr_max_loc = np.argmax(pwr_filt, axis=1)
 leg_pwr_max = ax1.scatter(df_ESAE_check['lat'], pwr_max_loc, marker='o', edgecolor='k', s=0.5, facecolor='k', linewidth=0.1)
 
-ax1.format(lltitle='CryoSat-2 L1B echogram', ylabel='range bins\n(0-256)')
+ax1.format(lltitle='CryoSat-2 L1B echogram', ylabel='range bins\n(0-256)', xlabel='latitude (degrees N)')
 ax1.yaxis.set_label_position("right")
 ax1.yaxis.tick_right()
 ax1.legend(leg_pwr_max, 'MAX', loc='lr', markersize=10)
 
-ax.colorbar(c, label='normalised power', loc='r', length=0.9)
+ax.colorbar(c, label='normalised power for CryoSat-2 echogram', loc='b', length=0.9)
 
 df_CryoTEMPO_check['snow_depth_zero_freeboard_assumption'] = (df_CryoTEMPO_check['IS2_w_mean_fb_MSS'])/ns
 df_FFSAR_check['snow_depth_zero_freeboard_assumption'] = (df_FFSAR_check['IS2_w_mean_fb_MSS'])/ns
@@ -495,9 +495,9 @@ leg2=ax.scatter(df_FFSAR_check['lat'], df_FFSAR_check['snow_depth'], label='FF-S
 leg3=ax.scatter(df_CryoTEMPO_check['lat'], df_CryoTEMPO_check['snow_depth'], label='CryoTEMPO{}: {:.2f} $\pm$ {:.2f} m'.format('$_{CRYO2ICE}$', np.nanmean(df_CryoTEMPO_check['snow_depth']), np.nanstd(df_CryoTEMPO_check['snow_depth'])), linewidth=0.5, markersize=1, linestyle='-', marker='o', zorder=-1, c=cmap_qual[2])
 leg6=ax.scatter(df_CryoTEMPO_check['lat'], df_CryoTEMPO_check['snow_depth_zero_freeboard_assumption'], label='ICESat-2{}: {:.2f} $\pm$ {:.2f} m'.format('$_{CRYOTEMPO_{CRYO2ICE}, zero-freeboard}$', np.nanmean(df_CryoTEMPO_check['snow_depth_zero_freeboard_assumption']), np.nanstd(df_CryoTEMPO_check['snow_depth_zero_freeboard_assumption'])), linewidth=0.5, markersize=1, linestyle='-', marker='o', zorder=-1, c=cmap_qual[3])
 ax.legend([leg1, leg2, leg3, leg6, leg4, leg5],loc='b', markersize=10, order='F', ncols=2, frameon=False) 
-ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)',)
+ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)')
 
-fig.format(abc='(a)', abcloc='ul', xlim=(np.max(df_ESAE_check['lat']), np.min(df_ESAE_check['lat'])))
+fig.format(abc='(a)', abcloc='ul', xlim=(np.max(df_ESAE_check['lat']), np.min(df_ESAE_check['lat'])), xlabel='latitude (degrees N)')
 
 fig.save(r'C:\Users\rmfha\Documents\GitHub\CRYO2ICE_Antarctic_underflight_comparison\figs\Figure7.png', dpi=300)
 

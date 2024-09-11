@@ -821,19 +821,22 @@ val = 'snow' ### 'ku', 'ka', 'snow'
 
 if val == 'ku':
     freq_c = 15e9
-    beta = 19
+    beta = 22
+    beta_2 = 15
+
 elif val == 'ka':
     freq_c = 35e9
-    beta = 19
+    beta = 18
+    beta_2 = 17
 elif val == 'snow':
     freq_c = 5e9
-    beta = 30
+    beta = 84
+    beta_2 = 31
 
 H = 300 # m 
 lambda_c = c/(freq_c) # GHz
 #lambda_c = c/3500e6
 L = np.sqrt((H*lambda_c)/2) # MAXIMUM
-
 print('Compute statistics for frequency = {:E} Hz, altitude = {} m'.format(freq_c, H))
 print('L (maximum) = {:.2f} m'.format(L))
 
@@ -860,6 +863,9 @@ print('Cross-track with pulse_limited = {:.2f} m'.format(sigma_y_pulse))
 
 sigma_cross = 2 * H * np.tan(np.radians(beta)/2)
 print('Cross-track with footprint as function of range = {:.2f} m'.format(sigma_cross))
+
+sigma_cross_2 = 2 * H * np.tan(np.radians(beta_2)/2)
+print('Cross-track with footprint as function of range (lowest beamwidth) = {:.2f} m'.format(sigma_cross_2))
 
 
 beta_ku = lambda_ku / (2*L)
@@ -1108,49 +1114,13 @@ ALS_time_along_radar_track_filt = ALS_time_along_radar_track[val_x*n1:val_x*(
 print('Start time: {}'.format(ALS_time_along_radar_track_filt[0]))
 print('Stop time: {}'.format(ALS_time_along_radar_track_filt[-1]))
 
-#%%
+#%% Compute along-track distance using haversine
 
 along_track_dist = np.zeros(len(latitude_comb))
 for i in np.arange(0, len(latitude_comb)):
     along_track_dist[i] = haversine(longitude_comb[0], latitude_comb[0],longitude_comb[i], latitude_comb[i])
 
-
-# %% computing PPK! CHECK IF THIS IS OK? NOT RELEVANT ANYMORE
-
-
-def ppk(pwr_waveform, n_bins=10):
-    ppk = []
-    for i in pwr_waveform:
-        try:
-            noise = np.nanmean(i[0:n_bins])
-            i = i[i > noise]
-
-            pp = np.nanmax(i)/np.nanmean(i)
-            ppk = np.append(ppk, pp)
-        except:
-            ppk = np.append(ppk, np.nan)
-    return ppk
-
-
-fn = 'kuband_20221213_02_74_232_002'
-ds = netCDF4.Dataset(
-    r'C:\Users\rmfha\Documents\GitHub\CRYO2ICE_Antarctic_underflight_comparison\data'+'/'+fn+'.nc', 'r')  # open CS2 data
-wf_kuband = ds.variables['waveform'][:]
-
-fn = 'kaband_20221213_02_74_232_002'
-ds = netCDF4.Dataset(
-    r'C:\Users\rmfha\Documents\GitHub\CRYO2ICE_Antarctic_underflight_comparison\data'+'/'+fn+'.nc', 'r')  # open CS2 data
-wf_kaband = ds.variables['waveform'][:]
-
-
-wf_kuband_ppk = ppk(wf_kuband, 100)
-wf_kaband_ppk = ppk(wf_kaband, 100)
-
-
-
-
-
-# %% Snow parameters
+#%% Snow parameters
 
 params = {
     'snow_density': 0.3,  # check?
@@ -1373,9 +1343,6 @@ axs.format(lonlim=(-65, -45), latlim=(-60, -75), labels=True, lrtitle='AMSR2 h$_
 from matplotlib.legend_handler import HandlerTuple
 import matplotlib.pyplot as plt
 
-axs.legend([(start1, stop1), (start2, stop2), leg3, leg1, leg2, leg4], ['Start/Stop CRYO2ICEANT22', 'Start/Stop CRYO2ICE{}'.format('$_{CryoTEMPO}$'), 'Subset example', 'CRYO2ICE{}'.format('$_{CryoTEMPO}$'),
-           'CRYO2ICEANT22', 'Manually-detected leads'], loc='ul', ncols=1,  numpoints=1, markersize=50, handler_map={tuple: HandlerTuple(ndivide=None)})
-
 from mpl_toolkits.axes_grid1.inset_locator import inset_axes
 axins = inset_axes(axs, width="35%", height="20%", loc="lower left", 
                    axes_class=cartopy.mpl.geoaxes.GeoAxes, 
@@ -1391,6 +1358,32 @@ axins.scatter(data_CASSIS[3], data_CASSIS[2], c=data_CASSIS[4]/10,
 area_lon = [-80, -40, -40, -80, -80]
 area_lat = [-58, -58, -75, -75, -58]
 axins.plot(area_lon, area_lat, c='k', ls='-', linewidth=0.5, transform=cartopy.crs.PlateCarree())
+
+
+import pyproj
+
+fp = r'C:\Users\rmfha\Downloads'
+fn = 'NSIDC-0780_SeaIceRegions_PS-S6.25km_v1.0'
+
+fp1 = fp+'/'+fn+'.nc'
+ds = netCDF4.Dataset(fp1, 'r')
+y_lat = ds.variables['y'][:]
+x_lon = ds.variables['x'][:]
+region_surf_type = ds.variables['sea_ice_region_NASA_surface_mask'][:][:]
+region_surf_type=region_surf_type.astype('float')
+
+mesh_lon, mesh_lat = np.meshgrid(x_lon,y_lat)
+
+proj = pyproj.Transformer.from_crs("epsg:6932", "epsg:4326", always_xy =True)
+lon_NSIDC, lat_NSIDC = proj.transform(mesh_lon, mesh_lat)
+
+region_surf_type[region_surf_type>34]=np.nan
+region_surf_type[region_surf_type<32]=np.nan
+leg5 = axs.scatter(lon_NSIDC[(region_surf_type>32)&(region_surf_type<35)].flatten(), lat_NSIDC[(region_surf_type>32)&(region_surf_type<35)].flatten(), c='lightsteelblue', zorder=-1, s=8)
+axins.scatter(lon_NSIDC[(region_surf_type>32)&(region_surf_type<35)].flatten(), lat_NSIDC[(region_surf_type>32)&(region_surf_type<35)].flatten(), c='lightsteelblue',  zorder=-1, s=0.5)
+
+axs.legend([(start1, stop1), (start2, stop2), leg3, leg1, leg2, leg4, leg5], ['Start/Stop CRYO2ICEANT22', 'Start/Stop CRYO2ICE{}'.format('$_{CryoTEMPO}$'), 'Subset example', 'CRYO2ICE{}'.format('$_{CryoTEMPO}$'),
+           'CRYO2ICEANT22', 'Manually-detected leads', 'Floating ice shelves'], loc='ul', ncols=1,  numpoints=1, markersize=50, handler_map={tuple: HandlerTuple(ndivide=None)})
 
 
 fig.save(r'C:\Users\rmfha\Documents\GitHub\CRYO2ICE_Antarctic_underflight_comparison\figs\Figure1_new.png', dpi=300)

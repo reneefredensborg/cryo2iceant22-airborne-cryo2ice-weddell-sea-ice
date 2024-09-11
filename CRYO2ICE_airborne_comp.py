@@ -252,15 +252,15 @@ leg7=ax.plot(df_CRYO2ICE_CryoTEMPO_check['lat'], df_CRYO2ICE_CryoTEMPO_check['hs
 leg8=ax.plot(df_CRYO2ICE_CryoTEMPO_check['lat'], df_CRYO2ICE_CryoTEMPO_check['hs_CWT'], label='CRYO2ICE{}: {:.2f} $\pm$ {:.2f} m'.format('$_{h_{s, CWT}}$', np.nanmean(df_CRYO2ICE_CryoTEMPO_check['hs_CWT']), np.nanstd(df_CRYO2ICE_CryoTEMPO_check['hs_CWT'])), linewidth=0.5, markersize=s1, linestyle='-', marker='o', zorder=-1, c=cmap_qual[6])
 
 ax.legend([leg1, leg2, leg3, leg4, leg5, leg6, leg7, leg8],loc='b', markersize=5, order='F', ncols=3, frameon=False) 
-ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)', lefttitle='Airborne observations binned to {:.0f} km-segments before CRYO2ICE smoothing'.format(j/1e3))
+ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)', xlim=(np.max(df_CRYO2ICE_CryoTEMPO_check['lat']), np.min(df_CRYO2ICE_CryoTEMPO_check['lat'])),lefttitle='Airborne observations binned to {:.0f} km segments before CRYO2ICE smoothing'.format(j/1e3))
 
 xlim1, ylim1 = (0, 1), (0, 1)
-x = np.arange(0, 1, 0.1)
+x = np.arange(0, 1.5, 0.1)
 s1 = 10
 ax = axs[1]
 val1, val2 = 'snow_depth', 'hs_ALS-Ku_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[0], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ku_{MAX}}$', ylabel='airborne snow depth (m)')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ku_{MAX}}}$', ylabel='airborne snow depth (m)')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -272,7 +272,7 @@ ax.legend(plot_show, loc='ul', handlelength=0, frameon=False)
 ax = axs[2]
 val1, val2 = 'snow_depth', 'hs_ALS-Ka_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[1], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ka_{MAX}}$', ylabel='')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ka_{MAX}}}$', ylabel='')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -284,7 +284,7 @@ ax.legend(plot_show, loc='ul', handlelength=0, frameon=False)
 ax = axs[3]
 val1, val2 = 'snow_depth', 'hs_ALS-C/S_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[2], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-C/S_{MAX}}$', ylabel='')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-C/S_{MAX}}}$', ylabel='')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -307,7 +307,7 @@ plot_show ='{}, Bias: {:.2f} m\nPearsons correlation: {:.2f}\nIntercept: {:.2f} 
 
 val1, val2 = 'snow_depth', 'hs_ALS-Ka_TFMRA50'
 plot2=ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[4], edgecolor='grey', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ku/Ka_{TFMRA50}}$', ylabel='airborne snow depth (m)')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ku/Ka_{TFMRA50}}}$', ylabel='airborne snow depth (m)')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -427,15 +427,15 @@ leg7=ax.plot(df_CRYO2ICE_CryoTEMPO_check['lat'], df_CRYO2ICE_CryoTEMPO_check['hs
 leg8=ax.plot(df_CRYO2ICE_CryoTEMPO_check['lat'], df_CRYO2ICE_CryoTEMPO_check['hs_CWT'], label='CRYO2ICE{}: {:.2f} $\pm$ {:.2f} m'.format('$_{h_{s, CWT}}$', np.nanmean(df_CRYO2ICE_CryoTEMPO_check['hs_CWT']), np.nanstd(df_CRYO2ICE_CryoTEMPO_check['hs_CWT'])), linewidth=0.5, markersize=s1, linestyle='-', marker='o', zorder=-1, c=cmap_qual[6])
 
 ax.legend([leg1, leg2, leg3, leg4, leg5, leg6, leg7, leg8],loc='b', markersize=5, order='F', ncols=3, frameon=False) 
-ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)', lefttitle='Airborne observations binned to 1 km-segments, CRYO2ICE identification (7-km along-track), lastly 25-km smoothing')
+ax.format(ylabel='snow depth, h$_s$ (m)',xlabel='latitude (degrees N)', xlim=(np.max(df_CRYO2ICE_CryoTEMPO_check['lat']), np.min(df_CRYO2ICE_CryoTEMPO_check['lat'])), lefttitle='Airborne observations binned to 1 km segments, CRYO2ICE identification (7 km along-track), lastly 25 km smoothing')
 
 xlim1, ylim1 = (0, 1), (0, 1)
-x = np.arange(0, 1, 0.1)
+x = np.arange(0, 1.5, 0.1)
 s1 = 10
 ax = axs[1]
 val1, val2 = 'snow_depth', 'hs_ALS-Ku_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[0], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ku_{MAX}}$', ylabel='airborne snow depth (m)')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ku_{MAX}}}$', ylabel='airborne snow depth (m)')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -447,7 +447,7 @@ ax.legend(plot_show, loc='ul', handlelength=0, frameon=False)
 ax = axs[2]
 val1, val2 = 'snow_depth', 'hs_ALS-Ka_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[1], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ka_{MAX}}$', ylabel='')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ka_{MAX}}}$', ylabel='')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -459,7 +459,7 @@ ax.legend(plot_show, loc='ul', handlelength=0, frameon=False)
 ax = axs[3]
 val1, val2 = 'snow_depth', 'hs_ALS-C/S_MAX'
 ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[2], edgecolor='k', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-C/S_{MAX}}$', ylabel='')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-C/S_{MAX}}}$', ylabel='')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
@@ -482,7 +482,7 @@ plot_show ='{}, Bias: {:.2f} m\nPearsons correlation: {:.2f}\nIntercept: {:.2f} 
 
 val1, val2 = 'snow_depth', 'hs_ALS-Ka_TFMRA50'
 plot2=ax.scatter(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2], s=s1, c=cmap_qual[4], edgecolor='grey', linewidth=0.5)
-ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS}-Ku/Ka_{TFMRA50}}$', ylabel='airborne snow depth (m)')
+ax.format(xlim=xlim1, ylim=ylim1, xlabel='', lefttitle='h$_{s, {ALS-Ku/Ka_{TFMRA50}}}$', ylabel='airborne snow depth (m)')
 ax.plot(x, x, c='k', zorder=-10, linewidth=0.5)
 
 res, rmsd = fit_linear(df_CRYO2ICE_CryoTEMPO_check[val1], df_CRYO2ICE_CryoTEMPO_check[val2])
