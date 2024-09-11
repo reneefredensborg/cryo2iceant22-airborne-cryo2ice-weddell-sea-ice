@@ -13,6 +13,7 @@ Contact: Renée Mie Fredensborg Hansen @ rmfha@space.dtu.dk
 ## Data
 Data produced using this code is available at DATA DTU following the DOI above. 
 C/S-band radar observations have been re-tracked with pySnowRadar (linked above), however due to issues with installing the package on my own computer, I instead had to use the functions from pySnowRadar locally. This includes the following python-programmes included in this repository: "Peakiness.py" and "Wavelet.py".
+For data availability, please check the associated manuscript.
 
 ## Code
 Conda environment used to run the code is available under "cryo2iceant.yml". Beyond the pySnowRadar package and functions used, the following python documents are included: 
