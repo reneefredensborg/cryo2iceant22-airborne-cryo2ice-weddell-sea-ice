@@ -1,5 +1,5 @@
 # CRYO2ICEANT2022 Antarctic Summer Sea Ice Under-Flight using Multi-Frequency Airborne Altimetry
-[![DOI](https://badgen.net/badge/DATA/10.11583%2FDTU.26732227/red)](https://figshare.com/s/9626392bca7b9c2a32e9) [![pySnowRadar](https://badgen.net/badge/pySnowRadar/10.5281%2Fzenodo.4071947/blue)](https://github.com/kingjml/pySnowRadar)
+[![DOI](https://zenodo.org/badge/855785306.svg)](https://zenodo.org/doi/10.5281/zenodo.13749341)[![DOI](https://badgen.net/badge/DATA/10.11583%2FDTU.26732227/red)](https://figshare.com/s/9626392bca7b9c2a32e9) [![pySnowRadar](https://badgen.net/badge/pySnowRadar/10.5281%2Fzenodo.4071947/blue)](https://github.com/kingjml/pySnowRadar)
 
 This repository holds the code used to derive and compare airborne (Ka-, Ku-, C/S-band and lidar) observations (snow depth or penetration) acquired along the Weddell Sea CRYO2ICE (CryoSat-2 and ICESat-2) orbit on the 13 December 2022 as part of the CRYO2ICEANT2022 campaign. 
 
