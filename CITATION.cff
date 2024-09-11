@@ -1,13 +1,11 @@
 cff-version: 1.2.0
 message: "If you use this software, please cite it as below."
 authors:
-  - family-names: Fredensborg Hansen
-    given-names: Renée Mie
-    orcid: https://orcid.org/0000-0002-3426-347X
-title: "CRYO2ICEANT2022 Antarctic Summer Sea Ice Under-Flight using Multi-Frequency Airborne Altimetry"
-version: 1.0
-identifiers:
-  - type: doi
-    value: 10.11583/DTU.26732227
-date-released: 2024-09
-year: 2024
+- family-names: "Fredensborg Hansen"
+  given-names: "Renée Mie"
+  orcid: "https://orcid.org/0000-0002-3426-347X"
+title: "cryo2iceant22-airborne-cryo2ice-weddell-sea-ice"
+version: 1.0.0
+doi: 10.5281/zenodo.1234
+date-released: 2024-09-11
+url: "https://github.com/reneefredensborg/cryo2iceant22-airborne-cryo2ice-weddell-sea-ice"
