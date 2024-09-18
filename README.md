@@ -3,7 +3,7 @@
 
 This repository holds the code used to derive and compare airborne (Ka-, Ku-, C/S-band and lidar) observations (snow depth or penetration) acquired along the Weddell Sea CRYO2ICE (CryoSat-2 and ICESat-2) orbit on the 13 December 2022 as part of the CRYO2ICEANT2022 campaign. 
 
-This repository is linked with the following pre-print: URL
+This repository is linked with the following pre-print: [Fredensborg Hansen et al (2024b, in review)](https://doi.org/10.5194/egusphere-2024-2854)
 
 Contact: Renée Mie Fredensborg Hansen @ rmfha@space.dtu.dk
 
@@ -19,7 +19,7 @@ For data availability, please check the associated manuscript.
 Conda environment used to run the code is available under "cryo2iceant.yml". Beyond the pySnowRadar package and functions used, the following python documents are included: 
 - _tfmra_py3.py_: A threshold-first-maxima-retracker-algorithm (TFMRA) re-tracker.
 - _airborne_CRESIS_mat_to_netCDF.py_: Programme to load all relevant .mat frames available after post-processing by CReSIS, and where each frame are re-tracked using the relevant re-trackers and the derived elevations (and other paramters) for the entire under-flight (including all relevant .mat-files) are saved into one file per radar.
-- _CRYO2ICE_func.py_: Functions to derive the CRYO2ICE collocated observations for deriving snow depth, and for extracting the nearest neighbouring AMSR2 and CASSIS observations. Based on code used to compute data for Fredensborg Hansen et al (2024), available at following repository: https://github.com/reneefredensborg/CRYO2ICE-Arctic-freeboards-and-snow-depth-2020-2022
+- _CRYO2ICE_func.py_: Functions to derive the CRYO2ICE collocated observations for deriving snow depth, and for extracting the nearest neighbouring AMSR2 and CASSIS observations. Based on code used to compute data for Fredensborg Hansen et al (2024a), available at following repository: https://github.com/reneefredensborg/CRYO2ICE-Arctic-freeboards-and-snow-depth-2020-2022
 
 For the post-processing including plotting, the following Python documents are relevant:
 - _main_CRESIS_comparison.py_: Airborne observations are opened, post-processed and inter-compared. This includes deriving a nadir lidar profile, offset calibration, discrimination of floes and leads, tracking the maximum scattering horizon, and evaluating penetration (to maximum scattering) and derive different snow depth estimates. 
@@ -29,4 +29,6 @@ For the post-processing including plotting, the following Python documents are r
 All plots included in the pre-print are available in the post-processing plots. NB! Work still required to clean up code. 
 
 ## References
-Fredensborg Hansen, R. M., Skourup, H., Rinne, E., Høyland, K. V., Landy, J. C., Merkouriadi, I., & Forsberg, R. (2024). Arctic Freeboard and Snow Depth From Near-Coincident CryoSat-2 and ICESat-2 (CRYO2ICE) Observations: A First Examination of Winter Sea Ice During 2020–2022. Earth and Space Science, 11(4), Article e2023EA003313. https://doi.org/10.1029/2023EA003313
+Fredensborg Hansen, R. M., Skourup, H., Rinne, E., Høyland, K. V., Landy, J. C., Merkouriadi, I., & Forsberg, R. (2024a). Arctic Freeboard and Snow Depth From Near-Coincident CryoSat-2 and ICESat-2 (CRYO2ICE) Observations: A First Examination of Winter Sea Ice During 2020–2022. Earth and Space Science, 11(4), Article e2023EA003313. https://doi.org/10.1029/2023EA003313
+
+Fredensborg Hansen, R. M., Skourup, H., Rinne, E., Jutila, A., Lawrence, I. R., Shepherd, A., Høyland, K. V., Li, J., Rodriguez-Morales, F., Simonsen, S. B., Wilkinson, J., Veyssiere, G., Yi, D., Forsberg, R., and Casal, T. G. D. (2024b) Exploring microwave penetration into snow on Antarctic summer sea ice along CryoSat-2 and ICESat-2 (CRYO2ICE) orbit from multi-frequency air- and spaceborne altimetry, EGUsphere [preprint], https://doi.org/10.5194/egusphere-2024-2854
